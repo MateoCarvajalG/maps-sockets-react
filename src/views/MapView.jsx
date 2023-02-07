@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMapBox } from '../hooks/useMapBox';
 
 
@@ -9,7 +9,21 @@ const initialPoint={
 }
 
 export const MapView = () => {
-  const {coords,setRef} = useMapBox(initialPoint)
+  const {coords,setRef,newMarker$,movementMarker$} = useMapBox(initialPoint)
+  
+  // * nuevo marcador
+  useEffect(() => {
+    newMarker$.subscribe(marker =>{
+      //TODO: emitir el nuevo marcador (sockets)
+    })
+  }, [newMarker$])
+  
+  useEffect(() => {
+    movementMarker$.subscribe(marker =>{
+      //TODO: emitir el movimiento del marcador (sockets)
+    })
+  }, [movementMarker$])
+  
 
   return (
     <>
