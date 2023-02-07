@@ -33,7 +33,6 @@ export const MapView = () => {
   // * movimiento de cualquier marcador
   useEffect(() => {
     movementMarker$.subscribe(marker =>{
-      //TODO: emitir el movimiento del marcador (sockets)
       socket.emit('marcador-actualizado',marker)
     })
   }, [socket,movementMarker$])
