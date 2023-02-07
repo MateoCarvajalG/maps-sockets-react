@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import mapboxgl from 'mapbox-gl'
+import React from 'react'
+import { useMapBox } from '../hooks/useMapBox';
 
-
-mapboxgl.accessToken = 'pk.eyJ1IjoiZ2FzcGVydGVvOSIsImEiOiJjbGNnYWZxYW01cG1yM3Ftc21reXFhazcwIn0.UFxYbh78gTEwImeFchwiJg';
 
 const initialPoint={
   lat: 5.0671308,
@@ -11,26 +9,15 @@ const initialPoint={
 }
 
 export const MapView = () => {
-  const mapDiv = useRef()
-  const [map,setMap]=useState()
-  const [coords, setCoords] = useState(initialPoint)
-
-  useEffect(()=>{
-    const map = new mapboxgl.Map({
-      container: mapDiv.current, // container ID
-      style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: [initialPoint.lng,initialPoint.lat], // starting position [lng, lat]
-      zoom: initialPoint.zoom, // starting zoom
-    });
-
-    setMap(map)
-  },[])
-
+  const {coords,setRef} = useMapBox(initialPoint)
 
   return (
     <>
+      <div className='info-map'>
+        Lng: {coords.lng} | Lat : {coords.lat} | zoom: {coords.zoom}
+      </div>
       <div 
-        ref={mapDiv}
+        ref={setRef}
         className='map-container'
       />
     </>
